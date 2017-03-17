@@ -1,8 +1,11 @@
+const path = require('path')
 const express = require('express')
 const app = express()
 const nunjucks = require('nunjucks')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
+const bluebird = require('bluebird')
+const db = require('./models/model.js')
 
 
 app.set('view engine', 'html')
@@ -16,7 +19,7 @@ app.use(bodyParser.json())
 
 
 app.use(morgan('dev'))
-app.static(path.join(__dirname, './public'))
+express.static(path.join(__dirname, './public'))
 
 
 
@@ -26,10 +29,10 @@ app.use(function(err,req,res,next){
   res.status(500).send(err.message)
 })
 
-
-
-
-
-app.listen(3000, function(){
-  console.log('listening on port 3000')
+Promise.all([
+  db.Place.sync(), db.Hotel.sync(), db.Activity.sync(), db.Restaurant.sync()
+]).then(function(){
+  app.listen(3000, function(){
+    console.log('listening on 3000')
+  })
 })
