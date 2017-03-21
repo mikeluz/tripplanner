@@ -5,7 +5,11 @@ const nunjucks = require('nunjucks');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const Promise = require('bluebird');
-const db = require('./models');
+// const db = require('./models');
+const Place = require('./models/place');
+const Hotel = require('./models/hotel');
+const Activity = require('./models/activity');
+const Restaurant = require('./models/restaurant');
 
 app.set('view engine', 'html');
 app.engine( 'html' , nunjucks.render );
@@ -23,10 +27,10 @@ app.use(function(err,req,res,next){
 });
 
 Promise.all([
-  db.Place.sync({}), 
-  db.Hotel.sync({}), 
-  db.Activity.sync({}), 
-  db.Restaurant.sync({})
+  Place.sync({}), 
+  Hotel.sync({}), 
+  Activity.sync({}), 
+  Restaurant.sync({})
 ]).then(function(){
   app.listen(3000, function(){
     console.log('listening on 3000');

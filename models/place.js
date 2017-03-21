@@ -19,7 +19,7 @@ var Place = db.define('place', {
 		allowNull: false
 	},
 	location: {
-		type: Sequelize.ARRAY(Sequelize.DECIMAL(6, 2)),
+		type: Sequelize.ARRAY(Sequelize.DECIMAL(6, 2), Sequelize.DECIMAL(6, 2)),
 		allowNull: false
 	}
 },{});

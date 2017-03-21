@@ -7,7 +7,7 @@ var Hotel = db.define('hotel', {
 		allowNull: false
 	},
 	num_stars: {
-		type: Sequelize.DECIMAL(1, 1),
+		type: Sequelize.INTEGER,
 		allowNull: false,
 		validate: {
 			min: 1,
